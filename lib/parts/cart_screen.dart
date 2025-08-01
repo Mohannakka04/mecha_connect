@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:mecha_connect/parts/order_data.dart';
 
 class CartScreen extends StatefulWidget {
   final List<Map<String, dynamic>> selecttems;
   final Function(Map<String, dynamic>) onRemove;
-
 
   const CartScreen({
     super.key,
@@ -35,42 +34,47 @@ class _CartScreenState extends State<CartScreen> {
     return total;
   }
 
-void _showConfirmation() async {
-  await showModalBottomSheet(
-    context: context,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
-    builder: (context) {
-      return SizedBox(
-        height: 400,
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[
-            Icon(Icons.check_circle, color: Colors.green, size: 60),
-            SizedBox(height: 12),
-            Text(
-              'Your order has been placed!',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      );
-    },
-  );
+  void _showConfirmation() async {
+    ordersList.addAll(widget.selecttems.map((item) => Map<String, dynamic>.from(item)));
 
-  // After confirmation closes, clear cart
-  setState(() {
-    widget.selecttems.clear();
-  });
-}
+    await showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          color: Colors.white,
+          
+          height: 400,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.check_circle, color: Colors.green, size: 60),
+              SizedBox(height: 12),
+              Text(
+                'Your order has been placed!',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    setState(() {
+      widget.selecttems.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Cart Items'),
+        backgroundColor: Colors.white,
+        title: const Text('Cart Items',style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: Column(
         children: [
@@ -82,61 +86,36 @@ void _showConfirmation() async {
                     itemBuilder: (context, index) {
                       final item = widget.selecttems[index];
                       return Card(
+                        color: Colors.white,
+                        elevation: 4,
                         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        child: ListTile(
+                          leading: Image.asset(item['image'], width: 50, height: 50, fit: BoxFit.cover),
+                          title: Text(item['name']),
+                          subtitle: Text('₹${item['price']} x ${item['quantity']}'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(item['image'], width: 60, height: 60, fit: BoxFit.cover),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(item['name'], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                                        const SizedBox(height: 4),
-                                        Text('₹${item['price']} each'),
-                                      ],
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.remove),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (item['quantity'] > 1) {
-                                          item['quantity']--;
-                                        } else {
-                                          _removeItem(item);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  Text('${item['quantity']}'),
-                                  IconButton(
-                                    icon: const Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        item['quantity']++;
-                                      });
-                                    },
-                                  ),
-                                ],
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () {
+                                  setState(() {
+                                    if (item['quantity'] > 1) {
+                                      item['quantity']--;
+                                    } else {
+                                      _removeItem(item);
+                                    }
+                                  });
+                                },
                               ),
-                              const SizedBox(height: 10),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: ElevatedButton(
-                                  onPressed: () => _removeItem(item),
-                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                                  child: const Text('Remove'),
-                                ),
+                              Text('${item['quantity']}'),
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () {
+                                  setState(() {
+                                    item['quantity']++;
+                                  });
+                                },
                               ),
                             ],
                           ),
@@ -146,46 +125,31 @@ void _showConfirmation() async {
                   ),
           ),
           if (widget.selecttems.isNotEmpty)
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Card(
-                    color: Colors.grey[200],
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Total Amount:',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '₹${totalPrice.toStringAsFixed(2)}',
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
-                          ),
-                        ],
-                      ),
-                    ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Total:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text('₹${totalPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 18, color: Colors.green)),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: SizedBox(
+                  const SizedBox(height: 10),
+                  SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _showConfirmation,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: Colors.grey.shade50
                       ),
-                      child: const Text('Buy Now', style: TextStyle(fontSize: 16)),
+                      onPressed: _showConfirmation,
+                      child: const Text('Buy Now'),
                     ),
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
         ],
       ),

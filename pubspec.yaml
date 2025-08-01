@@ -43,6 +43,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_nav_bar: ^5.0.7
   device_preview: ^1.2.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:

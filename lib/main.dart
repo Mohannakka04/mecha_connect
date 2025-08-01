@@ -2,7 +2,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mecha_connect/screens.dart';
+import 'package:mecha_connect/Starting_screen/screens.dart';
 import 'dart:async'; 
 
 
@@ -105,6 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                
                 // Your app logo from assets
                 // correctly placed in your project and declared in pubspec.yaml
                 Image.asset(
@@ -148,22 +149,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home Screen')),
-      body: const Center(
-        child: Text(
-          'Welcome to the Home Screen!',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-}
 
 // import 'package:flutter/material.dart';
 // import 'package:device_preview/device_preview.dart';
@@ -204,3 +190,48 @@ class HomeScreen extends StatelessWidget {
 //     );
 //   }
 // }
+
+
+
+class AppColors {
+  // Primary Brand Colors (from your logo and main theme)
+  static const Color primaryBlue = Color(0xFF4285F4); // A vibrant blue
+  static const Color accentOrange = Color(0xFFFB8C00); // A warm, energetic orange
+
+  // Text Colors
+  static const Color textPrimary = Color(0xFF212121); // Very dark grey for main headings/text
+  static const Color textSecondary = Color(0xFF9E9E9E); // Medium grey for descriptions/less important text
+  static const Color textOnPrimary = Color(0xFFFFFFFF); // White text for use on primary colored backgrounds (buttons etc.)
+
+  // Background Colors
+  static const Color backgroundWhite = Color(0xFFFFFFFF); // Pure white for main screen backgrounds, cards
+  static const Color backgroundLightGrey = Color(0xFFF5F5F5); // Very subtle off-white for main screen backgrounds to give cards lift
+  static const Color backgroundInputFill = Color(0xFFEEEEEE); // Light grey for input field backgrounds
+
+  // UI Element Colors
+  static const Color borderGrey = Color(0xFFE0E0E0); // Light grey for borders, dividers
+  static const Color iconDefault = Color(0xFF212121); // Dark grey for general icons
+  static const Color iconActive = Color(0xFF4285F4); // Primary blue for active icons (e.g., bottom nav)
+
+  // Feedback/State Colors
+  static const Color successGreen = Color(0xFF4CAF50); // Green for success messages
+  static const Color errorRed = Color(0xFFF44336); // Red for error messages
+
+  // MaterialColor for Primary Swatch (useful for ThemeData.primarySwatch)
+  // This generates a range of shades based on your primary color.
+  static const MaterialColor primaryMaterialSwatch = MaterialColor(
+    0xFF4285F4, // This is your primaryBlue color's hex code
+    <int, Color>{
+      50: Color(0xFFE3F2FD),   // Lighter shade for very subtle accents
+      100: Color(0xFFBBDEFB),
+      200: Color(0xFF90CAF9),
+      300: Color(0xFF64B5F6),
+      400: Color(0xFF42A5F5),
+      500: Color(0xFF4285F4),   // Your primaryBlue
+      600: Color(0xFF1E88E5),
+      700: Color(0xFF1976D2),
+      800: Color(0xFF1565C0),
+      900: Color(0xFF0D47A1),   // Darker shade for deep accents
+    },
+  );
+}

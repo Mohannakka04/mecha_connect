@@ -105,7 +105,7 @@ class _PartsScreenState extends State<PartsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Spare Parts'),
+        title: const Text('Spare Parts',style: TextStyle(fontWeight: FontWeight.bold),),
         actions: [
           Stack(
             children: [
@@ -189,12 +189,14 @@ class _PartsScreenState extends State<PartsScreen> {
               child: spareParts.isEmpty
                   ? const Center(child: Text('No spare parts available.'))
                   : GridView.count(
+                    
                       crossAxisCount: 2,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
                       childAspectRatio: 0.75,
                       children: spareParts.map((part) {
                         return Card(
+                          color: Colors.white,
                           elevation: 4,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -241,6 +243,7 @@ class _PartsScreenState extends State<PartsScreen> {
                                         ElevatedButton(
                                           onPressed: () => _addtocart(part),
                                           style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.grey.shade50,
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 12, vertical: 6),
                                           ),

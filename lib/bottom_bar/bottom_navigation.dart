@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:mecha_connect/OrderScreen.dart';
+import 'package:mecha_connect/bottom_bar/OrderScreen.dart';
 // import 'package:mecha_connect/Login.dart';
-import 'package:mecha_connect/home.dart';
+import 'package:mecha_connect/Starting_screen/home.dart';
+import 'package:mecha_connect/bottom_bar/chatboard.dart';
+import 'package:mecha_connect/main.dart';
 // import 'package:mecha_connect/home.dart';
 // import 'package:google_nav_bar/google_nav_bar.dart';
 // import 'package:healthish/group.dart';
@@ -39,6 +41,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget>  _navitems =[
     ServiceSelectionScreen(),
    PartsScreen(),
+   ChatBot(),
    Orderscreen()
    //Group(),
    //Group() 
@@ -47,30 +50,26 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     return  Scaffold(
     body: _navitems[_currentIndex],
-    bottomNavigationBar:Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: GNav(
-          
-          //backgroundColor: Colors.blue,
-          tabBackgroundColor: Colors.orange,
-          tabBorderRadius: 40,
-          onTabChange: (value) {
-            if(_currentIndex != value){
-              setState(() {
-               _currentIndex = value;    
-              }
-              );
-            }
-          },
-          tabs: [  
-          GButton(icon: Icons.home,text: "Home",),
-          GButton(icon: Icons.build,text: "Store",),
-          GButton(icon: Icons.shopping_bag,text: "Orders",),    
-        ]),
-      ),
-    ),
+    bottomNavigationBar:GNav(
+       backgroundColor: AppColors.backgroundWhite,
+      
+      
+      tabBackgroundColor: Colors.grey.shade50,
+      tabBorderRadius: 40,
+      onTabChange: (value) {
+        if(_currentIndex != value){
+          setState(() {
+           _currentIndex = value;    
+          }
+          );
+        }
+      },
+      tabs: [  
+      GButton(icon: Icons.home,text: "Home",),
+      GButton(icon: Icons.build,text: "Store",),
+      GButton(icon: Icons.person,text: "AI",),
+      GButton(icon: Icons.shopping_bag,text: "Orders",),    
+    ]),
     );
   }
 }

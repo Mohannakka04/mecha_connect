@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mecha_connect/Starting_screen/Login.dart';
 
 class ProfileDrawer extends StatelessWidget {
   const ProfileDrawer({super.key});
@@ -16,7 +17,7 @@ class ProfileDrawer extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.blueGrey,
                     child: Icon(Icons.person, size: 30, color: Colors.white),
                   ),
                   const SizedBox(height: 12),
@@ -44,7 +45,7 @@ class ProfileDrawer extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
-              Navigator.pop(context); // Optional: closes drawer
+              Navigator.pop(context,MaterialPageRoute(builder: (context)=>UserLoginScreen())); // Optional: closes drawer
             },
             icon: const Icon(Icons.logout),
             label: const Text("Logout"),
@@ -63,7 +64,7 @@ class ProfileDrawer extends StatelessWidget {
   Widget _buildInfoTile(IconData icon, String title, String subtitle) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(vertical: 4),
-      leading: Icon(icon, color: Colors.blueAccent),
+      leading: Icon(icon, color: Colors.blueGrey.shade200),
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(subtitle),
     );
