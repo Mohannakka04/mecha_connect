@@ -275,10 +275,13 @@ class _FuelSelectionPageState extends State<FuelSelectionPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text("Fuel Finder"),
         centerTitle: true,
         actions: [
+         
           IconButton(
+
             icon: const Icon(Icons.refresh),
             onPressed: _getCurrentLocation,
             tooltip: 'Refresh Location',
@@ -297,6 +300,7 @@ class _FuelSelectionPageState extends State<FuelSelectionPage>
               child: Column(
                 children: [
                   Card(
+                    color: Colors.white,
                     margin: const EdgeInsets.only(bottom: 8),
                     elevation: 4,
                     shape: RoundedRectangleBorder(
@@ -481,7 +485,7 @@ class _FuelSelectionPageState extends State<FuelSelectionPage>
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
+                        backgroundColor: Colors.orange,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

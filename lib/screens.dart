@@ -102,6 +102,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Text(_currentPage == onboardingData.length - 1 ? 'Get Started' : 'Next'),
                     ),
                   ),
+
+                  SizedBox(height: 5,),
                   if (_currentPage < onboardingData.length - 1)
                     TextButton(
                       onPressed: () {
@@ -109,6 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           MaterialPageRoute(builder: (context) => const UserLoginScreen()),
                         );
                       },
+                      
                       child: Text(
                         'Skip',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
