@@ -13,8 +13,8 @@ class Mechanic {
   final double lat;
   final double lng;
   final String address;
-
-  Mechanic({required this.name, required this.lat, required this.lng, required this.address});
+  final String Phone;
+  Mechanic({required this.name, required this.lat, required this.lng, required this.address,required this.Phone});
 }
 
 // Main application widget
@@ -176,9 +176,9 @@ class _MechanicMapScreenState extends State<MechanicMapScreen> with TickerProvid
   bool _isLoading = true;
 
   final List<Mechanic> mechanics = [
-    Mechanic(name: 'Jagadeesh Garage', lat: 17.083489406806656, lng: 82.07386940240158, address: 'ADB Road, Surampalem'),
-    Mechanic(name: 'Rithik Motors', lat: 17.083972393398188,  lng: 82.06321806984927, address: 'ADB Road  , Surampalem'),
-    Mechanic(name: 'Suresh Car Service', lat: 17.085285033809193,  lng: 82.05186180871164, address: 'Rameswarampeta, Surampalem'),
+    Mechanic(name: 'Jagadeesh Garage', lat: 17.083489406806656, lng: 82.07386940240158, address: 'ADB Road, Surampalem',Phone: "+91 9876543211"),
+    Mechanic(name: 'Mohan Motors', lat: 17.083972393398188,  lng: 82.06321806984927, address: 'ADB Road  , Surampalem',Phone: "+91 9876543212"),
+    Mechanic(name: 'Suresh Car Service', lat: 17.085285033809193,  lng: 82.05186180871164, address: 'Rameswarampeta, Surampalem',Phone: "+91 9876543213"),
   ];
 
   // ## FIX: Merged the two initState methods into one
@@ -273,12 +273,14 @@ class _MechanicMapScreenState extends State<MechanicMapScreen> with TickerProvid
                 Expanded(
                   flex: 3,
                   child: FlutterMap(
+                    
                     mapController: _mapController,
                     options: MapOptions(
                       initialCenter: _center,
                       initialZoom: 12.0,
                     ),
                     children: [
+                      
                       TileLayer(
                         urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                         userAgentPackageName: 'com.example.app',
@@ -310,6 +312,7 @@ class _MechanicMapScreenState extends State<MechanicMapScreen> with TickerProvid
                           leading: const Icon(Icons.build_circle_outlined, color: Colors.teal),
                           title: Text(m.name),
                           subtitle: Text(m.address),
+                          trailing: Text(m.Phone),
                           onTap: () {
                             _mapController.move(LatLng(m.lat, m.lng), 16.0);
                           },

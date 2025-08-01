@@ -103,7 +103,7 @@ class _ServiceSelectionScreenState extends State<ServiceSelectionScreen>
                                 const Text(
                                   'Choose Your Service',
                                   style: TextStyle(
-                                    fontSize: 28,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xFF2E3A59),
                                   ),

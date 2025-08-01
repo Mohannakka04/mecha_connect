@@ -142,6 +142,7 @@ class _PartsScreenState extends State<PartsScreen> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
+                    dropdownColor: Colors.white,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Select your vehicle",
