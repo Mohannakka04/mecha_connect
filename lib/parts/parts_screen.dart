@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:bsnl_home/parts/cart_screen.dart';
 import 'package:mecha_connect/parts/cart_screen.dart';
 
 class PartsScreen extends StatefulWidget {
@@ -11,6 +12,9 @@ class PartsScreen extends StatefulWidget {
 class _PartsScreenState extends State<PartsScreen> {
   final List<String> _vehicleList = ["Bike", "Car", "Other"];
   String? selectedVehicle;
+
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   final Map<String, List<Map<String, dynamic>>> allParts = {
     'Bike': [
@@ -41,12 +45,18 @@ class _PartsScreenState extends State<PartsScreen> {
   final List<Map<String, dynamic>> selecttems = [];
 
   List<Map<String, dynamic>> get spareParts {
+    List<Map<String, dynamic>> allItems = [];
+
     if (selectedVehicle == null) {
-      return allParts.values.expand((parts) => parts).toList();
+      allItems = allParts.values.expand((parts) => parts).toList();
     } else if (allParts.containsKey(selectedVehicle)) {
-      return allParts[selectedVehicle]!;
+      allItems = allParts[selectedVehicle]!;
     }
-    return [];
+
+    if (_searchQuery.isEmpty) return allItems;
+
+    return allItems.where((item) =>
+      item['name'].toLowerCase().contains(_searchQuery.toLowerCase())).toList();
   }
 
   void _addtocart(Map<String, dynamic> item) {
@@ -57,16 +67,14 @@ class _PartsScreenState extends State<PartsScreen> {
       setState(() {
         selecttems.add({...item, 'quantity': 1});
       });
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('${item['name']} added to cart')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${item['name']} added to cart')));
     } else {
       setState(() {
         selecttems[index]['quantity'] += 1;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Increased quantity of ${item['name']}')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Increased quantity of ${item['name']}')));
     }
   }
 
@@ -74,15 +82,14 @@ class _PartsScreenState extends State<PartsScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => CartScreen(
-              selecttems: selecttems,
-              onRemove: (item) {
-                setState(() {
-                  selecttems.remove(item);
-                });
-              },
-            ),
+        builder: (context) => CartScreen(
+          selecttems: selecttems,
+          onRemove: (item) {
+            setState(() {
+              selecttems.remove(item);
+            });
+          },
+        ),
       ),
     );
   }
@@ -97,6 +104,7 @@ class _PartsScreenState extends State<PartsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text('Spare Parts'),
         actions: [
           Stack(
@@ -140,15 +148,12 @@ class _PartsScreenState extends State<PartsScreen> {
                       hintText: "All Vehicles",
                     ),
                     value: selectedVehicle,
-                    items:
-                        _vehicleList
-                            .map(
-                              (vehicle) => DropdownMenuItem(
-                                value: vehicle,
-                                child: Text(vehicle),
-                              ),
-                            )
-                            .toList(),
+                    items: _vehicleList
+                        .map((vehicle) => DropdownMenuItem(
+                              value: vehicle,
+                              child: Text(vehicle),
+                            ))
+                        .toList(),
                     onChanged: (value) {
                       setState(() {
                         selectedVehicle = value;
@@ -164,92 +169,99 @@ class _PartsScreenState extends State<PartsScreen> {
               ],
             ),
             const SizedBox(height: 16),
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search spare parts...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
             Expanded(
-              child:
-                  spareParts.isEmpty
-                      ? const Center(child: Text('No spare parts available.'))
-                      : GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                        childAspectRatio: 0.75,
-                        children:
-                            spareParts.map((part) {
-                              return Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+              child: spareParts.isEmpty
+                  ? const Center(child: Text('No spare parts available.'))
+                  : GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 0.75,
+                      children: spareParts.map((part) {
+                        return Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius:
+                                      const BorderRadius.vertical(top: Radius.circular(12)),
+                                  child: Image.asset(
+                                    part['image'],
+                                    height: 50,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            const BorderRadius.vertical(
-                                              top: Radius.circular(12),
-                                            ),
-                                        child: Image.asset(
-                                          part['image'],
-                                          height: 50,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                        ),
+                                    Text(
+                                      part['name'],
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
                                       ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            part['name'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Text(
-                                                '₹${part['price']}',
-                                                style: const TextStyle(
-                                                  color: Colors.green,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              ElevatedButton(
-                                                onPressed:
-                                                    () => _addtocart(part),
-                                                style: ElevatedButton.styleFrom(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 6,
-                                                      ),
-                                                ),
-                                                child: const Text('Add'),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-
                                     const SizedBox(height: 8),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          '₹${part['price']}',
+                                          style: const TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () => _addtocart(part),
+                                          style: ElevatedButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12, vertical: 6),
+                                          ),
+                                          child: const Text('Add'),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              );
-                            }).toList(),
-                      ),
+                              ),
+                              const SizedBox(height: 8),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
             ),
           ],
         ),
       ),
+      backgroundColor: Colors.white,
     );
   }
 }

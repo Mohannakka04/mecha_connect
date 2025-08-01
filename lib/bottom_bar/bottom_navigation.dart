@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:mecha_connect/OrderScreen.dart';
 // import 'package:mecha_connect/Login.dart';
 import 'package:mecha_connect/home.dart';
 // import 'package:mecha_connect/home.dart';
@@ -38,6 +39,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget>  _navitems =[
     ServiceSelectionScreen(),
    PartsScreen(),
+   Orderscreen()
    //Group(),
    //Group() 
   ];
@@ -50,6 +52,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: GNav(
+          
           //backgroundColor: Colors.blue,
           tabBackgroundColor: Colors.orange,
           tabBorderRadius: 40,

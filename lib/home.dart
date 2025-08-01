@@ -61,6 +61,7 @@ class _ServiceSelectionScreenState extends State<ServiceSelectionScreen>
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           'Mecha',
           style: TextStyle(
@@ -71,7 +72,7 @@ class _ServiceSelectionScreenState extends State<ServiceSelectionScreen>
         ),
       ),
       endDrawer: ProfileDrawer(),
-      backgroundColor: const Color(0x0fff8f9f),
+      backgroundColor:  Colors.white,
       body: Expanded(
         child: SafeArea(
           child: FadeTransition(
@@ -305,7 +306,7 @@ class _ServiceSelectionScreenState extends State<ServiceSelectionScreen>
                               child: GestureDetector(
                                 onTap: () {
                                   // Add navigation to Petrol Service screen
-                                  Navigator.pushReplacement(
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => FuelSelectionPage(),
