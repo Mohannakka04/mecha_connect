@@ -11,7 +11,9 @@ class ProfileDrawer extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
         children: [
+          SizedBox(height: 20,),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 children: [
@@ -45,7 +47,7 @@ class ProfileDrawer extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
-              Navigator.pop(context,MaterialPageRoute(builder: (context)=>UserLoginScreen())); // Optional: closes drawer
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>MyWidget())); // Optional: closes drawer
             },
             icon: const Icon(Icons.logout),
             label: const Text("Logout"),
