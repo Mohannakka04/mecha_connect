@@ -227,6 +227,9 @@ class _FuelSelectionPageState extends State<FuelSelectionPage>
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade50
+                    ),
                     onPressed: () => Navigator.pop(context),
                     child: const Text('Close'),
                   ),
@@ -276,7 +279,7 @@ class _FuelSelectionPageState extends State<FuelSelectionPage>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("Fuel Finder"),
+        title: const Text("Fuel Finder",style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         actions: [
          
@@ -485,7 +488,7 @@ class _FuelSelectionPageState extends State<FuelSelectionPage>
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
+                        backgroundColor: Colors.grey.shade900,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

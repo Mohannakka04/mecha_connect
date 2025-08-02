@@ -106,7 +106,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                   width: 60,
                   height: 60,
                   decoration: const BoxDecoration(
-                    color: Color.fromARGB(183, 255, 153, 0),
+                    color: Color.fromARGB(255, 89, 162, 221),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -151,7 +151,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Color.fromARGB(178, 255, 153, 0),
+                        color: Colors.blue,
                         width: 2,
                       ),
                     ),
@@ -195,7 +195,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: Color.fromARGB(178, 255, 153, 0),
+                        color: Colors.blue,
                         width: 2,
                       ),
                     ),
@@ -220,7 +220,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _handleLogin,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: Colors.blue.shade400,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

@@ -13,8 +13,8 @@ class Mechanic {
   final double lat;
   final double lng;
   final String address;
-
-  Mechanic({required this.name, required this.lat, required this.lng, required this.address});
+  final String Phone;
+  Mechanic({required this.name, required this.lat, required this.lng, required this.address,required this.Phone});
 }
 
 // Main application widget
@@ -77,7 +77,7 @@ class _VehicleFormPageState extends State<VehicleFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Vehicle Service Request')),
+      appBar: AppBar(backgroundColor: Colors.white,title: const Text('Vehicle Service Request',style: TextStyle(fontWeight: FontWeight.bold),)),
       body: Container(
         height:double.infinity,
         width: double.infinity,
@@ -101,6 +101,7 @@ class _VehicleFormPageState extends State<VehicleFormPage> {
                       border: Border.all(color: Colors.grey.shade400)
                     ),
                     child: DropdownButton<String>(
+                      dropdownColor: Colors.white,
                       value: selectedVehicle,
                       hint: const Text('Choose vehicle type'),
                       isExpanded: true,
@@ -129,6 +130,7 @@ class _VehicleFormPageState extends State<VehicleFormPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey.shade50,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -174,9 +176,9 @@ class _MechanicMapScreenState extends State<MechanicMapScreen> with TickerProvid
   bool _isLoading = true;
 
   final List<Mechanic> mechanics = [
-    Mechanic(name: 'Jagadeesh Garage', lat: 17.083489406806656, lng: 82.07386940240158, address: 'ADB Road, Surampalem'),
-    Mechanic(name: 'Rithik Motors', lat: 17.083972393398188,  lng: 82.06321806984927, address: 'ADB Road  , Surampalem'),
-    Mechanic(name: 'Suresh Car Service', lat: 17.085285033809193,  lng: 82.05186180871164, address: 'Rameswarampeta, Surampalem'),
+    Mechanic(name: 'Jagadeesh Garage', lat: 17.083489406806656, lng: 82.07386940240158, address: 'ADB Road, Surampalem',Phone: "+91 9876543211"),
+    Mechanic(name: 'Mohan Motors', lat: 17.083972393398188,  lng: 82.06321806984927, address: 'ADB Road  , Surampalem',Phone: "+91 9876543212"),
+    Mechanic(name: 'Suresh Car Service', lat: 17.085285033809193,  lng: 82.05186180871164, address: 'Rameswarampeta, Surampalem',Phone: "+91 9876543213"),
   ];
 
   // ## FIX: Merged the two initState methods into one
@@ -262,7 +264,8 @@ class _MechanicMapScreenState extends State<MechanicMapScreen> with TickerProvid
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Mechanics for your ${widget.vehicle}')),
+      backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Colors.white,title: Text('Mechanics for your ${widget.vehicle}')),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Column(
@@ -270,12 +273,14 @@ class _MechanicMapScreenState extends State<MechanicMapScreen> with TickerProvid
                 Expanded(
                   flex: 3,
                   child: FlutterMap(
+                    
                     mapController: _mapController,
                     options: MapOptions(
                       initialCenter: _center,
                       initialZoom: 12.0,
                     ),
                     children: [
+                      
                       TileLayer(
                         urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                         userAgentPackageName: 'com.example.app',
@@ -300,11 +305,14 @@ class _MechanicMapScreenState extends State<MechanicMapScreen> with TickerProvid
                     itemBuilder: (context, index) {
                       final m = mechanics[index];
                       return Card(
+                        color: Colors.white
+                        ,elevation: 4,
                         margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         child: ListTile(
                           leading: const Icon(Icons.build_circle_outlined, color: Colors.teal),
                           title: Text(m.name),
                           subtitle: Text(m.address),
+                          trailing: Text(m.Phone),
                           onTap: () {
                             _mapController.move(LatLng(m.lat, m.lng), 16.0);
                           },
