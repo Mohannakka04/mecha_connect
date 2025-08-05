@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    // Dispose the animation controller to prevent memory leaks
+    
     _animationController.dispose();
     super.dispose();
   }
@@ -94,45 +94,25 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Background color for the splash screen
+      backgroundColor: Colors.white, 
       body: Center(
         child: FadeTransition(
-          // Apply fade animation to the whole content
+          
           opacity: _fadeAnimation,
           child: ScaleTransition(
-            // Apply scale animation to the whole content
+            
             scale: _scaleAnimation,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 
-                // Your app logo from assets
-                // correctly placed in your project and declared in pubspec.yaml
                 Image.asset(
-                  'no_bg.png',
-                  width: 400, // Adjust width as needed
-                  height: 400, // Adjust height as needed
+                  'assets/no_bg.png',
+                  width: 400, 
+                  height: 400,
                 ),
                 const SizedBox(height: 20),
-                // "MECHA" part of the app name
-                // const Text(
-                //   'MECHA',
-                //   style: TextStyle(
-                //     color: Color(0xFF2E3A59), // Dark blue color from logo
-                //     fontSize: 28,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-                // const SizedBox(height: 5), // Smaller gap between words
-                // // "CONNECT" part of the app name
-                // const Text(
-                //   'CONNECT',
-                //   style: TextStyle(
-                //     color: Color(0xFFF15A22), // Orange color from logo
-                //     fontSize: 24,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
+                
                 const SizedBox(height: 40),
                 // Optional: A CircularProgressIndicator to show loading
                 const CircularProgressIndicator(
@@ -151,87 +131,45 @@ class _SplashScreenState extends State<SplashScreen>
 
 
 
-// import 'package:flutter/material.dart';
-// import 'package:device_preview/device_preview.dart';
-// import 'package:mecha_connect/chatboard.dart';
-// void main()
-// {
-//   runApp(DevicePreview(builder:(context)=>MyApp()));
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home:Chatboard(),
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'chat_screen.dart';
-
-// Future<void> main() async {
-//   await dotenv.load(fileName: ".env");
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'AI ChatBot',
-//       home: ChatBotScreen(),
-//       debugShowCheckedModeBanner: false,
-//     );
-//   }
-// }
-
-
 
 class AppColors {
-  // Primary Brand Colors (from your logo and main theme)
-  static const Color primaryBlue = Color(0xFF4285F4); // A vibrant blue
-  static const Color accentOrange = Color(0xFFFB8C00); // A warm, energetic orange
+  
+  static const Color primaryBlue = Color(0xFF4285F4); 
+  static const Color accentOrange = Color(0xFFFB8C00);
 
-  // Text Colors
-  static const Color textPrimary = Color(0xFF212121); // Very dark grey for main headings/text
-  static const Color textSecondary = Color(0xFF9E9E9E); // Medium grey for descriptions/less important text
-  static const Color textOnPrimary = Color(0xFFFFFFFF); // White text for use on primary colored backgrounds (buttons etc.)
+  
+  static const Color textPrimary = Color(0xFF212121); 
+  static const Color textSecondary = Color(0xFF9E9E9E); 
+  static const Color textOnPrimary = Color(0xFFFFFFFF); 
 
-  // Background Colors
-  static const Color backgroundWhite = Color(0xFFFFFFFF); // Pure white for main screen backgrounds, cards
-  static const Color backgroundLightGrey = Color(0xFFF5F5F5); // Very subtle off-white for main screen backgrounds to give cards lift
-  static const Color backgroundInputFill = Color(0xFFEEEEEE); // Light grey for input field backgrounds
+  
+  static const Color backgroundWhite = Color(0xFFFFFFFF); 
+  static const Color backgroundLightGrey = Color(0xFFF5F5F5); 
+  static const Color backgroundInputFill = Color(0xFFEEEEEE); 
 
-  // UI Element Colors
-  static const Color borderGrey = Color(0xFFE0E0E0); // Light grey for borders, dividers
-  static const Color iconDefault = Color(0xFF212121); // Dark grey for general icons
-  static const Color iconActive = Color(0xFF4285F4); // Primary blue for active icons (e.g., bottom nav)
+  
+  static const Color borderGrey = Color(0xFFE0E0E0); 
+  static const Color iconDefault = Color(0xFF212121);
+  static const Color iconActive = Color(0xFF4285F4); 
 
-  // Feedback/State Colors
-  static const Color successGreen = Color(0xFF4CAF50); // Green for success messages
-  static const Color errorRed = Color(0xFFF44336); // Red for error messages
+  
+  static const Color successGreen = Color(0xFF4CAF50);
+  static const Color errorRed = Color(0xFFF44336); 
 
-  // MaterialColor for Primary Swatch (useful for ThemeData.primarySwatch)
-  // This generates a range of shades based on your primary color.
+  
   static const MaterialColor primaryMaterialSwatch = MaterialColor(
-    0xFF4285F4, // This is your primaryBlue color's hex code
+    0xFF4285F4,
     <int, Color>{
-      50: Color(0xFFE3F2FD),   // Lighter shade for very subtle accents
+      50: Color(0xFFE3F2FD), 
       100: Color(0xFFBBDEFB),
       200: Color(0xFF90CAF9),
       300: Color(0xFF64B5F6),
       400: Color(0xFF42A5F5),
-      500: Color(0xFF4285F4),   // Your primaryBlue
+      500: Color(0xFF4285F4),   
       600: Color(0xFF1E88E5),
       700: Color(0xFF1976D2),
       800: Color(0xFF1565C0),
-      900: Color(0xFF0D47A1),   // Darker shade for deep accents
+      900: Color(0xFF0D47A1),   
     },
   );
 }
